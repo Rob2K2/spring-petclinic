@@ -1,0 +1,24 @@
+---
+- hosts: webservers
+  user: root
+
+  tasks:
+   - name: install Java 8
+     apt: 
+      name: openjdk-8-jre
+      state: present
+
+   - name: install Maven
+     apt:
+      name: maven
+      state: present
+
+   - name: Copy Artifact
+     copy:
+      src: /home/osboxes/.jenkins/workspace/final_pipeline/target/spring-petclinic.jar
+      dest: /home/osboxes/Documents/
+      
+   - name: Run Webpage
+     shell: java -jar /home/osboxes/Documents/spring-petclinic.jar
+     async: 2592000
+     poll: 0

@@ -67,15 +67,12 @@ pipeline{
                     ]
                 ]
             }
-        }/*
+        }
         stage("Deployment PROD"){
-            agent{label 'PROD'}
+            agent{label 'master'}
             steps{
-                 unstash "stash-artifact"
-                 sh "docker load -i blog.tar"
-                 sh "docker rm blog -f || true"
-                 sh "docker run -d -p 8090:8090 --name blog mauricio/blog"
+                 sh "ansible-playbook /home/osboxes/Desktop/playb.yml"
             }
-        }*/
+        }
     }
 }
